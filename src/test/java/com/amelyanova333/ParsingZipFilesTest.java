@@ -25,10 +25,11 @@ public class ParsingZipFilesTest {
             ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
 
-                if (entry.getName().equals("test_file.pdf")) {
+                if (entry.getName().equals("readme.pdf")) {
 
                     PDF pdf = new PDF(zis);
-                    assertEquals("Пример cопроводительного файла", pdf.text);
+                    assertEquals("LaTeX with hyperref package", pdf.creator);
+                    assertTrue(pdf.text.startsWith("EigenEdge package"));
 
                 }
             }
@@ -43,10 +44,12 @@ public class ParsingZipFilesTest {
              ZipInputStream zis = new ZipInputStream(is)) {
             ZipEntry entry;
             while ((entry = zis.getNextEntry()) != null) {
-                if (entry.getName().equals("test_demo.xlsx")) {
+                if (entry.getName().equals("test.xlsx")) {
                     XLS xls = new XLS(zis);
-                    assertTrue(xls.excel.getSheetAt(1).getRow(0).getCell(2)
-                            .getStringCellValue().contains("<AT> АВСТРИЯ"));
+                    assertTrue(xls.excel.getSheetAt(0).getRow(1).getCell(5)
+                            .getStringCellValue().startsWith("Помните о правильном написании дат"));
+                    assertTrue(xls.excel.getSheetAt(0).getRow(4).getCell(12)
+                            .getStringCellValue().startsWith("хорошо"));
 
                 }
             }
@@ -63,7 +66,7 @@ public class ParsingZipFilesTest {
                 if (entry.getName().equals("test_names.csv")) {
                     CSVReader csvReader = new CSVReader(new InputStreamReader(zis));
                     List<String[]> content = csvReader.readAll();
-                    assertArrayEquals(new String[]{"Имя", "Возраст", "Город"}, content.get(0));
+                    assertArrayEquals(new String[]{"Ирина", "25", "Минск"}, content.get(1));
 
                 }
             }
