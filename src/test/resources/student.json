@@ -1,0 +1,17 @@
+{
+  "id": 1001,
+  "name": "Bella",
+  "surname": "Petrova",
+  "score": {
+    "mathematics": 90,
+    "science": 85,
+    "computer": 89
+  },
+  "hobbies": [
+    "Sport",
+    "History"
+  ],
+  "formCompleted": true
+}
+
+
